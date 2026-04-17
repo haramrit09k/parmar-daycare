@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parmar DayCare — A Safe, Loving Home Away From Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #3d9b8f;
+      --teal-dark:   #2c7a70;
+      --teal-light:  #e8f5f3;
+      --coral:       #e86f4e;
+      --coral-dark:  #c4583a;
+      --cream:       #fdf6ec;
+      --white:       #ffffff;
+      --text-dark:   #2d2d2d;
+      --text-mid:    #5a5a5a;
+      --shadow:      0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 68px;
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+
+    .nav-logo {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { color: var(--coral); }
+
+    .nav-badge {
+      background: var(--coral);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 40px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 32px 60px;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-text .eyebrow {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 16px;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(30px, 4.5vw, 50px);
+      font-weight: 800;
+      line-height: 1.18;
+      color: #1e4a44;
+      margin-bottom: 20px;
+    }
+
+    .hero-text .subhead {
+      font-size: 17px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 14px 34px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--teal-dark); transform: translateY(-2px); }
+
+    .hero-note {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 14px;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--teal-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-img-placeholder::before {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      top: -40px; right: -40px;
+    }
+
+    .hero-img-placeholder::after {
+      content: '';
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(232,111,78,0.2);
+      bottom: 20px; left: 20px;
+    }
+
+    .hero-img-placeholder span { position: relative; z-index: 1; text-align: center; padding: 20px; }
+
+    .floating-tag {
+      position: absolute;
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px 16px;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tag-1 { bottom: -16px; left: -20px; color: var(--teal); }
+    .tag-2 { top: -16px; right: -20px; color: var(--coral); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 90px 32px; }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800;
+      line-height: 1.25;
+      color: #1e4a44;
+      margin-bottom: 18px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--teal-light);
+      clip-path: ellipse(120% 100% at 50% 100%);
+      padding-bottom: 110px;
+    }
+
+    .about-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-inner p {
+      font-size: 17px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .chip {
+      background: var(--teal);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 40px;
+    }
+
+    /* ── PROGRAMS ── */
+    #programs { background: var(--cream); }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .program-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .program-card:hover { transform: translateY(-6px); }
+
+    .prog-header {
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prog-header-1 { background: linear-gradient(135deg, #3d9b8f, #6ec6bb); }
+    .prog-header-2 { background: linear-gradient(135deg, #e86f4e, #f4a07e); }
+    .prog-header-3 { background: linear-gradient(135deg, #7b68c8, #a89ee0); }
+
+    .prog-icon {
+      width: 54px; height: 54px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prog-icon svg { width: 28px; height: 28px; color: #fff; }
+
+    .prog-body { padding: 22px 22px 26px; }
+
+    .prog-age {
+      display: inline-block;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 40px;
+      margin-bottom: 10px;
+    }
+
+    .prog-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e4a44;
+      margin-bottom: 8px;
+    }
+
+    .prog-desc {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ── WHY ── */
+    #why { background: var(--white); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .why-card {
+      background: var(--teal-light);
+      border-radius: 18px;
+      padding: 28px 26px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .why-icon {
+      width: 48px; height: 48px;
+      background: var(--teal);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-icon svg { width: 24px; height: 24px; color: #fff; }
+
+    .why-text h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1e4a44;
+      margin-bottom: 6px;
+    }
+    .why-text p { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── SAFETY ── */
+    #safety {
+      background: var(--cream);
+      padding: 80px 32px;
+    }
+
+    .safety-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 52px 48px;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .safety-icon-wrap {
+      width: 72px; height: 72px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .safety-icon-wrap svg { width: 36px; height: 36px; color: var(--teal); }
+
+    .safety-card h2 { margin-bottom: 16px; }
+    .safety-card p { font-size: 16px; color: var(--text-mid); line-height: 1.75; margin-bottom: 32px; }
+
+    .safety-badges {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .safety-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 40px;
+    }
+
+    .safety-badge svg { width: 16px; height: 16px; color: var(--teal); }
+
+    /* ── WAITLIST ── */
+    #waitlist {
+      background: var(--teal);
+      padding: 90px 32px;
+      text-align: center;
+    }
+
+    #waitlist h2 { color: #fff; margin-bottom: 14px; }
+    #waitlist .sub { font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+    #waitlist-form {
+      max-width: 460px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #waitlist-form input {
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      background: #fff;
+      color: var(--text-dark);
+    }
+    #waitlist-form input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.4); }
+    #waitlist-form input::placeholder { color: #aaa; }
+
+    .btn-coral {
+      background: var(--coral);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .btn-coral:hover { background: var(--coral-dark); }
+
+    .success-msg {
+      background: #fff;
+      color: var(--teal-dark);
+      border-radius: 16px;
+      padding: 24px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--cream); }
+
+    .contact-card {
+      max-width: 600px;
+      margin: 48px auto 0;
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-header {
+      background: var(--teal);
+      color: #fff;
+      padding: 20px 28px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .contact-rows { padding: 8px 0; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 28px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .contact-row:last-child { border-bottom: none; }
+
+    .contact-row svg { width: 20px; height: 20px; color: var(--teal); flex-shrink: 0; }
+    .contact-row span { font-size: 15px; color: var(--text-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--teal-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 14px;
+    }
+
+    footer strong { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--white); padding: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); z-index: 99; }
+      .hamburger { display: flex; }
+
+      #hero { padding: 90px 20px 50px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+      .hero-visual { order: -1; }
+      .floating-tag { display: none; }
+
+      section { padding: 60px 20px; }
+      #about { clip-path: none; padding-bottom: 60px; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+
+      .safety-card { padding: 36px 24px; }
+      .contact-row { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    Parmar DayCare
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#waitlist">Waitlist</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="nav-badge">Grand Opening · Oct 2026</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="eyebrow">Opening October 2026</div>
+      <h1>A Safe, Loving Home Away From Home</h1>
+      <p class="subhead">Parmar DayCare is a nurturing space where little ones are celebrated, supported, and given room to grow — as a true partner alongside your family, every single day.</p>
+      <a href="#waitlist" class="btn-primary">Join Our Waitlist</a>
+      <p class="hero-note">Enrolling now for our October 2026 opening</p>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-placeholder" aria-label="Children playing happily in a bright, welcoming classroom">
+        <span>📸 Photo: Happy children<br>in a warm, welcoming space</span>
+      </div>
+      <div class="floating-tag tag-1">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
+        Always in touch
+      </div>
+      <div class="floating-tag tag-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Safe &amp; Licensed
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="section-tag">Our Philosophy</div>
+      <h2>We're More Than a Daycare — We're Your Family's Partner</h2>
+      <p>Parmar DayCare was built on a simple belief: every child deserves to be known, not just cared for. We take time to understand each child's personality, rhythms, and interests, and we share that with you — every single day. Our doors (and phones) are always open for a conversation, a question, or just a check-in.</p>
+      <div class="chips">
+        <div class="chip">Open Communication</div>
+        <div class="chip">Individual Care Plans</div>
+        <div class="chip">Family-Centred Approach</div>
+        <div class="chip">Community Events</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="container">
+    <div class="section-tag">Programs</div>
+    <h2>Built Around Every Stage of Childhood</h2>
+    <div class="programs-grid">
+
+      <div class="program-card">
+        <div class="prog-header prog-header-1">
+          <div class="prog-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </div>
+        </div>
+        <div class="prog-body">
+          <div class="prog-age">[ X – X months ]</div>
+          <div class="prog-name">Infant Care</div>
+          <p class="prog-desc">Gentle, responsive care built on routine and attachment. Our infant room is calm, sensory-rich, and designed for the deep one-on-one attention your baby deserves.</p>
+        </div>
+      </div>
+
+      <div class="program-card">
+        <div class="prog-header prog-header-2">
+          <div class="prog-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+        </div>
+        <div class="prog-body">
+          <div class="prog-age">[ 1 – 3 years ]</div>
+          <div class="prog-name">Toddler Discovery</div>
+          <p class="prog-desc">A busy, joyful space where toddlers build language, motor skills, and friendships through hands-on play, music, and guided exploration with patient educators.</p>
+        </div>
+      </div>
+
+      <div class="program-card">
+        <div class="prog-header prog-header-3">
+          <div class="prog-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+        </div>
+        <div class="prog-body">
+          <div class="prog-age">[ 3 – 5 years ]</div>
+          <div class="prog-name">Pre-K Foundations</div>
+          <p class="prog-desc">Playful preparation for school. Children develop early literacy, numeracy, and the social skills they need — through projects, stories, and curiosity-driven activities.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div class="section-tag">Why Parmar DayCare</div>
+    <h2>Why Families Choose Us</h2>
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Feels Like Home</h3>
+          <p>Warm, cozy spaces designed to feel like a second home — because for your child, they will be. We keep our environment inviting, safe, and full of personality.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Always in the Loop</h3>
+          <p>Daily notes, photos, and our open-phone policy mean you're never out of touch. You'll always know how your child's day is going.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Growing Minds</h3>
+          <p>Age-appropriate activities that build curiosity, confidence, and early learning skills — woven naturally into every part of the day.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="why-text">
+          <h3>Tight-Knit Community</h3>
+          <p>Small groups, low ratios, and a team that knows your child by name — and by heart. We celebrate milestones together, big and small.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section id="safety">
+  <div class="container">
+    <div class="safety-card">
+      <div class="safety-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2>Your Child's Safety is Our Priority</h2>
+      <p>Our space is licensed, secure, and staffed by trained, background-checked educators who hold current CPR certification. We conduct daily health checks, maintain clean and age-safe environments, and communicate any concerns to parents immediately. Your peace of mind isn't optional — it's built in.</p>
+      <div class="safety-badges">
+        <div class="safety-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Licensed &amp; Insured
+        </div>
+        <div class="safety-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Background-Checked Staff
+        </div>
+        <div class="safety-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          CPR Certified
+        </div>
+        <div class="safety-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Secure Entry
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section id="waitlist">
+  <div class="container">
+    <h2>Opening October 2026 — Join Our Waitlist</h2>
+    <p class="sub">Be among the first families to secure a spot. Fill in your details and we'll reach out as enrollment opens.</p>
+    <form id="waitlist-form" novalidate>
+      <input type="text" name="name" id="wl-name" placeholder="Your name" required autocomplete="name">
+      <input type="email" name="email" id="wl-email" placeholder="Your email address" required autocomplete="email">
+      <button type="submit" class="btn-coral">Count Me In!</button>
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-tag">Find Us</div>
+      <h2>Get in Touch</h2>
+    </div>
+    <div class="contact-card">
+      <div class="contact-header">Parmar DayCare</div>
+      <div class="contact-rows">
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>[Address], [City, Province] [Postal Code]</span>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
+          <span>[Phone Number]</span>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>[email@parmarkdaycare.com]</span>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Monday – Friday &nbsp;·&nbsp; [7:00 AM – 6:00 PM]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Parmar DayCare</strong> &nbsp;·&nbsp; Made with care &nbsp;·&nbsp; Opening October 2026 &nbsp;·&nbsp; © 2026 All Rights Reserved
+</footer>
+
+<script>
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Waitlist form
+  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('wl-name').value.trim() || 'there';
+    const msg = document.createElement('div');
+    msg.className = 'success-msg';
+    msg.textContent = 'Wonderful! Thank you, ' + name + '. We\'ll be in touch as enrollment opens — we can\'t wait to welcome your family!';
+    this.replaceWith(msg);
+  });
+</script>
+</body>
+</html>
