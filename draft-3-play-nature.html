@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parmar DayCare — Where Curiosity Leads and Learning Follows</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage:       #6b8f71;
+      --sage-dark:  #4a6b50;
+      --sage-light: #e8f0e9;
+      --sand:       #c9a970;
+      --sand-dark:  #a8894f;
+      --sky:        #87b5cc;
+      --sky-light:  #e8f2f7;
+      --parchment:  #f5efe3;
+      --earth:      #3d2e1e;
+      --white:      #ffffff;
+      --text:       #2e2e2e;
+      --text-mid:   #5a5a5a;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--parchment); color: var(--text); line-height: 1.65; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--parchment);
+      border-bottom: 1.5px solid rgba(107,143,113,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 36px; height: 66px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled { background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .nav-logo { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: var(--sage-dark); text-decoration: none; display: flex; align-items: center; gap: 9px; }
+    .nav-logo svg { color: var(--sage); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--sage-dark); }
+    .nav-badge { background: var(--sand); color: var(--earth); font-size: 12px; font-weight: 500; padding: 5px 14px; border-radius: 40px; white-space: nowrap; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--sage-dark); border-radius: 2px; }
+
+    /* HERO */
+    #hero { min-height: 100vh; background: var(--parchment); display: flex; align-items: center; padding: 100px 36px 60px; position: relative; overflow: hidden; }
+    .hero-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 60% 40%; gap: 56px; align-items: center; width: 100%; }
+    .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .hero-eyebrow svg { width: 14px; height: 14px; }
+    .hero-text h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(28px, 4vw, 50px); line-height: 1.18; color: var(--earth); margin-bottom: 20px; }
+    .hero-text .subhead { font-size: 17px; font-weight: 300; color: var(--text-mid); line-height: 1.75; margin-bottom: 32px; max-width: 480px; }
+    .btn-sand { display: inline-block; background: var(--sand); color: var(--earth); font-size: 15px; font-weight: 500; padding: 13px 32px; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .btn-sand:hover { background: var(--sand-dark); transform: translateY(-2px); }
+    .hero-link { display: block; margin-top: 14px; font-size: 14px; color: var(--sage); text-decoration: underline; }
+    .hero-blob {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--sage) 0%, var(--sage-light) 100%);
+      border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 500; color: var(--sage-dark);
+      text-align: center; padding: 30px;
+    }
+
+    /* WAVE DIVIDER */
+    .wave { display: block; width: 100%; overflow: hidden; line-height: 0; }
+    .wave svg { display: block; width: 100%; }
+
+    /* SECTION BASE */
+    section { padding: 80px 36px; }
+    .container { max-width: 1060px; margin: 0 auto; }
+    .section-tag { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); margin-bottom: 10px; }
+    h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(24px, 3.2vw, 36px); color: var(--earth); line-height: 1.22; margin-bottom: 18px; }
+
+    /* ABOUT */
+    #about { background: var(--sage); padding: 80px 36px 100px; text-align: center; }
+    #about h2 { color: var(--white); }
+    .about-body { max-width: 760px; margin: 0 auto; }
+    .about-body p { font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.88); line-height: 1.8; margin-bottom: 36px; }
+    .principles { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .principle { background: var(--sage-dark); color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; padding: 8px 20px; border-radius: 40px; }
+
+    /* PROGRAMS */
+    #programs { background: var(--parchment); }
+    .programs-stack { display: flex; flex-direction: column; gap: 28px; margin-top: 48px; }
+    .prog-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .prog-row.reverse { direction: rtl; }
+    .prog-row.reverse > * { direction: ltr; }
+    .prog-visual { min-height: 200px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; text-align: center; padding: 24px; }
+    .pv-1 { background: linear-gradient(135deg, var(--sky) 0%, var(--sky-light) 100%); color: #3d6b85; }
+    .pv-2 { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-light) 100%); color: var(--sage-dark); }
+    .pv-3 { background: linear-gradient(135deg, var(--sand) 0%, #f0ddb8 100%); color: var(--sand-dark); }
+    .prog-text { padding: 36px 36px; }
+    .prog-label { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+    .prog-name { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: var(--earth); margin-bottom: 4px; }
+    .prog-age { font-size: 13px; color: var(--sand-dark); font-weight: 500; margin-bottom: 12px; }
+    .prog-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+    /* WHY */
+    #why { background: var(--sky-light); }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    .why-card { background: var(--white); border-radius: 16px; padding: 28px 26px; }
+    .why-icon { width: 44px; height: 44px; background: var(--sage-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .why-icon svg { width: 22px; height: 22px; color: var(--sage-dark); }
+    .why-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 17px; color: var(--earth); margin-bottom: 8px; }
+    .why-card p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+    /* SAFETY */
+    #safety { background: var(--earth); text-align: center; }
+    #safety h2 { color: var(--white); }
+    .safety-body { max-width: 680px; margin: 0 auto; }
+    .safety-body p { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 36px; }
+    .safety-tags { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .safety-tag { background: rgba(107,143,113,0.3); border: 1px solid rgba(107,143,113,0.5); color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500; padding: 8px 20px; border-radius: 40px; }
+
+    /* WAITLIST */
+    #waitlist { background: var(--parchment); }
+    .waitlist-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .waitlist-date { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(48px, 8vw, 80px); line-height: 1; color: var(--sand); }
+    .waitlist-date span { display: block; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--text-mid); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+    .waitlist-left p { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-top: 14px; }
+    #waitlist-form { display: flex; flex-direction: column; gap: 14px; }
+    #waitlist-form input { padding: 13px 16px; border: 1.5px solid rgba(107,143,113,0.4); border-radius: 8px; font-size: 15px; font-family: inherit; background: var(--white); color: var(--text); outline: none; transition: border-color 0.2s; }
+    #waitlist-form input:focus { border-color: var(--sage); }
+    #waitlist-form input::placeholder { color: #bbb; }
+    .btn-sage { background: var(--sage); color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .btn-sage:hover { background: var(--sage-dark); }
+    .success-msg { background: var(--sage-light); border-left: 4px solid var(--sage); color: var(--sage-dark); padding: 20px 22px; border-radius: 0 8px 8px 0; font-size: 15px; font-weight: 500; line-height: 1.6; }
+
+    /* CONTACT */
+    #contact { background: var(--sky-light); }
+    .contact-card { max-width: 600px; margin: 40px auto 0; background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .contact-head { background: var(--sage); color: #fff; padding: 18px 28px; font-family: 'DM Serif Display', Georgia, serif; font-size: 18px; }
+    .contact-row { display: flex; align-items: center; gap: 14px; padding: 15px 28px; border-bottom: 1px solid #f0f0f0; }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row svg { width: 18px; height: 18px; color: var(--sage); flex-shrink: 0; }
+    .contact-row span { font-size: 14px; color: var(--text-mid); }
+
+    /* FOOTER */
+    footer { background: var(--earth); color: rgba(255,255,255,0.55); text-align: center; padding: 28px 24px; font-size: 13px; }
+    footer strong { color: var(--sand); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 66px; left: 0; right: 0; background: var(--white); padding: 20px; z-index: 99; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+      .hamburger { display: flex; }
+      section { padding: 56px 20px; }
+      #hero { padding: 90px 20px 50px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-blob { display: none; }
+      .prog-row, .prog-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .prog-row.reverse .prog-visual { order: -1; }
+      .why-grid { grid-template-columns: 1fr; }
+      .waitlist-inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 00-9 9c0 3.87 2.44 7.16 6 8.49V21h2v-1.17c1.72-.46 3.25-1.46 4.38-2.83H17a5 5 0 000-10h-.1A9.07 9.07 0 0012 2z"/></svg>
+    Parmar DayCare
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#waitlist">Waitlist</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="nav-badge">Grand Opening · Oct 2026</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 00-9 9c0 3.87 2.44 7.16 6 8.49V21h2v-1.17c1.72-.46 3.25-1.46 4.38-2.83H17a5 5 0 000-10h-.1A9.07 9.07 0 0012 2z"/></svg>
+        Nature-Inspired Learning · Opening Oct 2026
+      </div>
+      <h1>Where Curiosity Leads and Learning Follows</h1>
+      <p class="subhead">At Parmar DayCare, we follow the child. Through purposeful play, natural materials, and outdoor exploration, children discover the world at their own pace — and fall in love with learning.</p>
+      <a href="#waitlist" class="btn-sand">Join Our Waitlist</a>
+      <a href="#about" class="hero-link">Learn about our approach ↓</a>
+    </div>
+    <div class="hero-blob" aria-label="Children exploring in a nature-inspired learning space">
+      📸 Photo: Child<br>exploring nature
+    </div>
+  </div>
+</section>
+
+<!-- WAVE: parchment → sage -->
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#6b8f71"/></svg></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-body">
+      <div class="section-tag" style="color:rgba(255,255,255,0.6);">Our Philosophy</div>
+      <h2>Learning That Grows from the Ground Up</h2>
+      <p>Parmar DayCare is guided by the belief that children are born capable. Our educators act as guides — preparing rich environments, observing each child's natural interests, and stepping back to let curiosity do its work. We bring the outdoors in and take learning outside as often as we can.</p>
+      <div class="principles">
+        <div class="principle">Child-Led Exploration</div>
+        <div class="principle">Natural Materials</div>
+        <div class="principle">Outdoor Learning</div>
+        <div class="principle">Unhurried Pace</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE: sage → parchment -->
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="#f5efe3"/></svg></div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="container">
+    <div class="section-tag">Programs</div>
+    <h2>Three Pathways, One Journey</h2>
+    <div class="programs-stack">
+
+      <div class="prog-row">
+        <div class="prog-visual pv-1">📸 Infant in calm,<br>sensory-rich space</div>
+        <div class="prog-text">
+          <div class="prog-label">Sprouts</div>
+          <div class="prog-name">Infant Care</div>
+          <div class="prog-age">[ X – X months ]</div>
+          <p class="prog-desc">Gentle, routine-based care in a calm and sensory-rich environment. Each infant receives close, responsive attention from a consistent caregiver who learns their unique rhythms and cues.</p>
+        </div>
+      </div>
+
+      <div class="prog-row reverse">
+        <div class="prog-visual pv-2">📸 Toddler hands-on<br>discovery activity</div>
+        <div class="prog-text">
+          <div class="prog-label">Explorers</div>
+          <div class="prog-name">Toddler Discovery</div>
+          <div class="prog-age">[ 1 – 3 years ]</div>
+          <p class="prog-desc">A hands-on world of discovery. Toddlers build language, motor skills, and early friendships through open-ended play, natural materials, and joyful, curiosity-driven activities.</p>
+        </div>
+      </div>
+
+      <div class="prog-row">
+        <div class="prog-visual pv-3">📸 Pre-K children in<br>project-based activity</div>
+        <div class="prog-text">
+          <div class="prog-label">Discoverers</div>
+          <div class="prog-name">Pre-K Foundations</div>
+          <div class="prog-age">[ 3 – 5 years ]</div>
+          <p class="prog-desc">Project-based activities that build kindergarten readiness through play. Children develop early literacy, numeracy, creativity, and the confidence to take on new challenges.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WAVE: parchment → sky-light -->
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#e8f2f7"/></svg></div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <div class="section-tag">Why Parmar DayCare</div>
+    <h2>What Makes Our Garden Grow</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+        <h3>Whole-Child Development</h3>
+        <p>We nurture cognitive, emotional, physical, and social growth — because children are whole people, not test scores. Every part of the day is a learning opportunity.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Environment as Teacher</h3>
+        <p>Our spaces are intentionally designed — natural materials, open-ended toys, cozy reading nooks, and sensory stations that invite children to explore freely.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 00-9 9c0 3.87 2.44 7.16 6 8.49V21h2v-1.17c1.72-.46 3.25-1.46 4.38-2.83H17a5 5 0 000-10h-.1A9.07 9.07 0 0012 2z"/></svg></div>
+        <h3>Outdoor Time Daily</h3>
+        <p>Come rain or shine (safely!), children spend time outdoors every day — because nature is one of the best classrooms there is for curious young minds.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h3>Unhurried Pace</h3>
+        <p>We resist the rush. Children have time to finish a thought, return to a project, and develop deep focus at their own natural tempo — no clock-watching.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE: sky-light → earth -->
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#3d2e1e"/></svg></div>
+
+<!-- SAFETY -->
+<section id="safety">
+  <div class="container">
+    <div class="safety-body">
+      <div class="section-tag" style="color:rgba(107,143,113,0.8);">Safety &amp; Trust</div>
+      <h2>A Safe Space to Grow Wild</h2>
+      <p>Safety and freedom are not opposites — they are partners. Our fully licensed facility, trained and background-checked educators, secure entry, and daily health protocols create the secure foundation children need to explore boldly and grow confidently.</p>
+      <div class="safety-tags">
+        <div class="safety-tag">Licensed Facility</div>
+        <div class="safety-tag">Background-Checked Staff</div>
+        <div class="safety-tag">CPR Certified</div>
+        <div class="safety-tag">Secure Entry</div>
+        <div class="safety-tag">Daily Health Checks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE: earth → parchment -->
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#f5efe3"/></svg></div>
+
+<!-- WAITLIST -->
+<section id="waitlist">
+  <div class="container">
+    <div class="waitlist-inner">
+      <div class="waitlist-left">
+        <div class="waitlist-date">October<br>2026<span>Grand Opening</span></div>
+        <p>We are now accepting expressions of interest. Join our waitlist to be among the first families welcomed into the Parmar DayCare community.</p>
+      </div>
+      <div>
+        <div class="section-tag">Reserve Your Spot</div>
+        <h2 style="margin-bottom:24px;">Join Our Waitlist</h2>
+        <form id="waitlist-form" novalidate>
+          <input type="text" name="name" id="wl-name" placeholder="Your name" required autocomplete="name">
+          <input type="email" name="email" id="wl-email" placeholder="Your email address" required autocomplete="email">
+          <button type="submit" class="btn-sage">Reserve Our Spot</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE: parchment → sky-light -->
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#e8f2f7"/></svg></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-tag">Find Us</div>
+      <h2>Come Find Us</h2>
+    </div>
+    <div class="contact-card">
+      <div class="contact-head">Parmar DayCare</div>
+      <div class="contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>[Address], [City, Province] [Postal Code]</span></div>
+      <div class="contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg><span>[Phone Number]</span></div>
+      <div class="contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>[email@parmarkdaycare.com]</span></div>
+      <div class="contact-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Monday – Friday &nbsp;·&nbsp; [7:00 AM – 6:00 PM]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Parmar DayCare</strong> &nbsp;·&nbsp; Opening October 2026 &nbsp;·&nbsp; © 2026 All Rights Reserved
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('wl-name').value.trim() || 'there';
+    const msg = document.createElement('div');
+    msg.className = 'success-msg';
+    msg.textContent = 'Your curiosity is welcome here! Thank you, ' + name + '. We\'ll be in touch as enrollment opens.';
+    this.replaceWith(msg);
+  });
+</script>
+</body>
+</html>
