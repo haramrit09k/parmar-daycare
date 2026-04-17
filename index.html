@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parmar DayCare — Website Drafts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: #f4f7f6;
+      color: #2d2d2d;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a2744;
+      padding: 48px 24px 40px;
+      text-align: center;
+      color: #fff;
+    }
+
+    header .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e8a838;
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    header p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.8);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 20px;
+      background: #e8a838;
+      color: #1a2744;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 6px 18px;
+      border-radius: 40px;
+      letter-spacing: 0.04em;
+    }
+
+    main {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 36px;
+    }
+
+    .drafts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .draft-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .draft-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+    }
+
+    .card-swatch {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .swatch-1 { background: linear-gradient(135deg, #1a2744 0%, #2d6a4f 100%); color: rgba(255,255,255,0.7); }
+    .swatch-2 { background: linear-gradient(135deg, #3d9b8f 0%, #e86f4e 100%); color: rgba(255,255,255,0.85); }
+    .swatch-3 { background: linear-gradient(135deg, #6b8f71 0%, #c9a970 100%); color: rgba(255,255,255,0.85); }
+
+    .card-body {
+      padding: 24px 26px 30px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-number {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #1a1a1a;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      color: #888;
+      margin-bottom: 14px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #555;
+      flex: 1;
+      margin-bottom: 22px;
+    }
+
+    .palette-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .swatch-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.08);
+    }
+
+    .card-cta {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s;
+      text-decoration: none;
+    }
+
+    .cta-1 { background: #1a2744; color: #e8a838; }
+    .cta-2 { background: #3d9b8f; color: #fff; }
+    .cta-3 { background: #6b8f71; color: #fff; }
+
+    .card-cta:hover { opacity: 0.85; }
+
+    .note {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 14px;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    .note strong { color: #555; }
+
+    footer {
+      background: #1a2744;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      font-size: 13px;
+      padding: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .drafts-grid { grid-template-columns: 1fr; }
+      header { padding: 36px 20px 32px; }
+      main { padding: 40px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Website Design Previews</div>
+  <h1>Parmar DayCare</h1>
+  <p>Three distinct design directions for your daycare's website. Click each draft to explore the full page — then share your thoughts on which direction feels right.</p>
+  <div class="badge">Grand Opening · October 2026</div>
+</header>
+
+<main>
+  <div class="section-label">Choose Your Direction</div>
+
+  <div class="drafts-grid">
+
+    <!-- Draft 1 -->
+    <a href="draft-1-trust-excellence.html" class="draft-card">
+      <div class="card-swatch swatch-1">Professional &amp; Academic</div>
+      <div class="card-body">
+        <div class="card-number">Draft 01</div>
+        <div class="card-title">Trust &amp; Excellence</div>
+        <div class="card-subtitle">Navy · Forest Green · Gold</div>
+        <p class="card-desc">A polished, credential-forward design that positions Parmar DayCare as a serious educational institution. Clean lines, generous white space, and a tone that speaks directly to parents who care about school readiness and developmental outcomes.</p>
+        <div class="palette-row">
+          <div class="swatch-dot" style="background:#1a2744;" title="Navy"></div>
+          <div class="swatch-dot" style="background:#2d6a4f;" title="Forest Green"></div>
+          <div class="swatch-dot" style="background:#e8a838;" title="Gold"></div>
+          <div class="swatch-dot" style="background:#f8f6f0;" title="Cream"></div>
+        </div>
+        <span class="card-cta cta-1">View Draft 1 →</span>
+      </div>
+    </a>
+
+    <!-- Draft 2 -->
+    <a href="draft-2-warm-nurturing.html" class="draft-card">
+      <div class="card-swatch swatch-2">Warm &amp; Community-Centered</div>
+      <div class="card-body">
+        <div class="card-number">Draft 02</div>
+        <div class="card-title">Warm &amp; Nurturing</div>
+        <div class="card-subtitle">Teal · Coral · Cream</div>
+        <p class="card-desc">A friendly, approachable design built around family connection and emotional trust. Rounded cards, soft colours, and messaging that reassures parents their child will be truly known — not just looked after.</p>
+        <div class="palette-row">
+          <div class="swatch-dot" style="background:#3d9b8f;" title="Teal"></div>
+          <div class="swatch-dot" style="background:#e86f4e;" title="Coral"></div>
+          <div class="swatch-dot" style="background:#fdf6ec;" title="Cream"></div>
+          <div class="swatch-dot" style="background:#e8f5f3;" title="Light Teal"></div>
+        </div>
+        <span class="card-cta cta-2">View Draft 2 →</span>
+      </div>
+    </a>
+
+    <!-- Draft 3 -->
+    <a href="draft-3-play-nature.html" class="draft-card">
+      <div class="card-swatch swatch-3">Nature-Inspired &amp; Play-Based</div>
+      <div class="card-body">
+        <div class="card-number">Draft 03</div>
+        <div class="card-title">Play &amp; Nature</div>
+        <div class="card-subtitle">Sage · Sand · Sky Blue</div>
+        <p class="card-desc">An organic, Montessori-inspired design that lets the environment do the talking. Wave dividers, earthy tones, and a child-led philosophy at the heart of every word — ideal if outdoor exploration and play-based learning are core to your approach.</p>
+        <div class="palette-row">
+          <div class="swatch-dot" style="background:#6b8f71;" title="Sage Green"></div>
+          <div class="swatch-dot" style="background:#c9a970;" title="Sand"></div>
+          <div class="swatch-dot" style="background:#87b5cc;" title="Sky Blue"></div>
+          <div class="swatch-dot" style="background:#f5efe3;" title="Parchment"></div>
+        </div>
+        <span class="card-cta cta-3">View Draft 3 →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <p class="note">
+    <strong>How to give feedback:</strong> Browse all three and note which sections, colours, or phrases feel most like <em>you</em>.<br>
+    Placeholder text like <em>[Address]</em> and <em>[Phone Number]</em> will be filled in once those details are confirmed.
+  </p>
+</main>
+
+<footer>
+  Parmar DayCare · Website Drafts · Prepared for review — not yet live
+</footer>
+
+</body>
+</html>

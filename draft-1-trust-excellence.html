@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parmar DayCare — Where Every Child's Potential is Nurtured</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #1a2744;
+      --navy-mid:   #243258;
+      --green:      #2d6a4f;
+      --green-light:#e8f2ec;
+      --gold:       #e8a838;
+      --gold-dark:  #b8831f;
+      --cream:      #f8f6f0;
+      --white:      #ffffff;
+      --text-dark:  #1c1c1c;
+      --text-mid:   #4a4a4a;
+      --border:     #e0ddd4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', Georgia, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-center a {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-center a:hover { color: var(--gold); }
+
+    .nav-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 5px 14px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--gold); border-radius: 1px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Geometric CSS background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 40px,
+          rgba(255,255,255,0.015) 40px,
+          rgba(255,255,255,0.015) 41px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 40px,
+          rgba(255,255,255,0.015) 40px,
+          rgba(255,255,255,0.015) 41px
+        );
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,106,79,0.25) 0%, transparent 70%);
+      bottom: -200px; right: -100px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 22px;
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(30px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    .hero-content .subhead {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 14px 38px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-gold:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.4);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll svg {
+      width: 20px; height: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 90px 40px; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.22;
+      margin-bottom: 20px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 4px 1fr;
+      gap: 0 40px;
+      max-width: 800px;
+    }
+
+    .about-bar { background: var(--green); border-radius: 2px; }
+
+    .about-text p {
+      font-size: 17px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      border: 1.5px solid var(--navy);
+      padding: 16px 22px;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 140px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    .stat-val {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* ── PROGRAMS ── */
+    #programs { background: var(--cream); }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .program-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .program-card:hover { border-color: var(--green); transform: translateY(-4px); }
+
+    .prog-header {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .prog-header-1 { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); }
+    .prog-header-2 { background: linear-gradient(135deg, var(--green) 0%, #3d8a63 100%); }
+    .prog-header-3 { background: linear-gradient(135deg, #4a5d8a 0%, var(--navy) 100%); }
+
+    .prog-icon {
+      width: 48px; height: 48px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prog-icon svg { width: 24px; height: 24px; color: #fff; }
+
+    .prog-body { padding: 24px; }
+
+    .prog-age {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .prog-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .prog-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── WHY ── */
+    #why { background: var(--white); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 48px;
+      border: 1px solid var(--border);
+    }
+
+    .why-item {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .why-item:last-child { border-right: none; }
+
+    .why-icon {
+      width: 44px; height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .why-icon svg { width: 32px; height: 32px; color: var(--green); }
+
+    .why-item h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .why-item p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── SAFETY ── */
+    #safety { background: var(--navy); }
+
+    .safety-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+
+    .safety-rule {
+      width: 60px; height: 2px;
+      background: var(--gold);
+      margin: 0 auto 36px;
+    }
+
+    #safety h2 { color: var(--white); margin-bottom: 20px; }
+
+    #safety p {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .safety-badges {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .safety-badge {
+      border: 1px solid rgba(232,168,56,0.5);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 2px;
+    }
+
+    /* ── WAITLIST ── */
+    #waitlist { background: var(--cream); }
+
+    .waitlist-inner { max-width: 640px; margin: 0 auto; }
+
+    .waitlist-inner p {
+      font-size: 17px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .gold-rule {
+      width: 48px; height: 3px;
+      background: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    #waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #waitlist-form input {
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      background: var(--white);
+      color: var(--text-dark);
+      transition: border-color 0.2s;
+    }
+    #waitlist-form input:focus { border-color: var(--navy); }
+    #waitlist-form input::placeholder { color: #bbb; }
+
+    .btn-gold-submit {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 14px;
+      border-radius: 2px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .btn-gold-submit:hover { background: var(--gold-dark); }
+
+    .success-msg {
+      border-left: 4px solid var(--green);
+      background: var(--green-light);
+      color: var(--green);
+      padding: 20px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.6;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+
+    .contact-col {
+      padding: 32px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .contact-col:last-child { border-right: none; }
+
+    .contact-col-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-col-title svg { width: 18px; height: 18px; color: var(--green); }
+
+    .contact-col p, .contact-col a {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      display: block;
+      text-decoration: none;
+    }
+    .contact-col a:hover { color: var(--navy); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    footer strong { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-center { display: none; }
+      .nav-center.open { display: flex; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--navy); padding: 20px 28px; z-index: 99; gap: 20px; }
+      .hamburger { display: flex; }
+
+      section { padding: 60px 20px; }
+      #hero { padding: 90px 20px 60px; }
+
+      .about-inner { grid-template-columns: 1fr; }
+      .about-bar { display: none; }
+      .stat-row { flex-direction: column; }
+
+      .programs-grid { grid-template-columns: 1fr; }
+
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .why-item { border-bottom: 1px solid var(--border); }
+      .why-item:nth-child(odd) { border-right: 1px solid var(--border); }
+      .why-item:nth-child(even) { border-right: none; }
+
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .contact-col:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .why-item { border-right: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Parmar DayCare</a>
+  <ul class="nav-center" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#waitlist">Waitlist</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="nav-badge">Grand Opening · Oct 2026</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Parmar DayCare &nbsp;·&nbsp; Opening October 2026</div>
+    <h1>Where Every Child's Potential is Nurtured</h1>
+    <p class="subhead">An exceptional early learning environment rooted in developmental research, professional care, and a deep commitment to the families we serve.</p>
+    <a href="#waitlist" class="btn-gold">Join Our Waitlist</a>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Discover More</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-bar"></div>
+      <div class="about-text">
+        <div class="section-tag">Our Philosophy</div>
+        <h2>An Educational Foundation, Not Just a Daycare</h2>
+        <p>At Parmar DayCare, we believe the earliest years are the most formative. Our curriculum blends structured learning with guided play, drawing on developmental research to build the cognitive, social, and emotional foundations children need to thrive in school and beyond. We partner closely with every family to ensure your child's individual strengths are recognized and celebrated every single day.</p>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-label">Ages Served</div>
+            <div class="stat-val">[ X mo ] – 5 yrs</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Child-to-Educator</div>
+            <div class="stat-val">Low Ratios</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Educators</div>
+            <div class="stat-val">Certified Staff</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="container">
+    <div class="section-tag">Programs &amp; Age Groups</div>
+    <h2>A Pathway for Every Stage of Development</h2>
+    <div class="programs-grid">
+
+      <div class="program-card">
+        <div class="prog-header prog-header-1">
+          <div class="prog-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+        </div>
+        <div class="prog-body">
+          <div class="prog-age">[ X – X months ]</div>
+          <div class="prog-name">Infant Care</div>
+          <p class="prog-desc">Responsive, attachment-focused care in a calm, sensory-rich environment. Each infant receives dedicated one-on-one attention tailored to their individual developmental stage and daily rhythm.</p>
+        </div>
+      </div>
+
+      <div class="program-card">
+        <div class="prog-header prog-header-2">
+          <div class="prog-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+          </div>
+        </div>
+        <div class="prog-body">
+          <div class="prog-age">[ 1 – 3 years ]</div>
+          <div class="prog-name">Toddler Discovery</div>
+          <p class="prog-desc">A structured yet playful program that builds language, motor coordination, and early social skills through guided activities, music, creative arts, and purposeful daily routines.</p>
+        </div>
+      </div>
+
+      <div class="program-card">
+        <div class="prog-header prog-header-3">
+          <div class="prog-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+        </div>
+        <div class="prog-body">
+          <div class="prog-age">[ 3 – 5 years ]</div>
+          <div class="prog-name">Pre-K Foundations</div>
+          <p class="prog-desc">An outcomes-based Pre-K program aligned with early learning standards. Children develop literacy, numeracy, critical thinking, and the confidence to enter kindergarten prepared and proud.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <div class="section-tag">Why Parmar DayCare</div>
+    <h2>What Sets Us Apart</h2>
+    <div class="why-grid">
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Safety First</h3>
+        <p>Fully licensed, background-checked staff, secure access-controlled facility, and documented daily health checks — every single day.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>School Readiness</h3>
+        <p>Our curriculum is aligned with provincial early learning standards, preparing children for a confident and successful kindergarten transition.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Individual Attention</h3>
+        <p>Low child-to-educator ratios ensure every child is seen, heard, and supported according to their unique developmental pace.</p>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Family Partnership</h3>
+        <p>Weekly progress updates, an open-door communication policy, and regular parent-educator conversations keep you connected at every step.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section id="safety">
+  <div class="container">
+    <div class="safety-inner">
+      <div class="safety-rule"></div>
+      <h2>Our Commitment to Safety</h2>
+      <p>Every educator at Parmar DayCare holds current CPR and First Aid certification. Our facility is designed with secure entry, age-appropriate equipment, and documented daily health checks. Your child's safety is not a feature — it is our foundation. We are fully licensed, insured, and subject to regular regulatory review.</p>
+      <div class="safety-badges">
+        <div class="safety-badge">Licensed &amp; Insured</div>
+        <div class="safety-badge">CPR Certified Staff</div>
+        <div class="safety-badge">Secure Facility</div>
+        <div class="safety-badge">Daily Health Checks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section id="waitlist">
+  <div class="container">
+    <div class="waitlist-inner">
+      <div class="section-tag">Grand Opening</div>
+      <div class="gold-rule"></div>
+      <h2>Opening October 2026 — Expressions of Interest Now Open</h2>
+      <p>We are currently accepting expressions of interest for enrollment. Join our waitlist to be among the first families welcomed into the Parmar DayCare community.</p>
+      <form id="waitlist-form" novalidate>
+        <input type="text" name="name" id="wl-name" placeholder="Your full name" required autocomplete="name">
+        <input type="email" name="email" id="wl-email" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="btn-gold-submit">Join Our Waitlist</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-tag">Contact</div>
+    <h2>Get in Touch</h2>
+    <div class="contact-grid">
+      <div class="contact-col">
+        <div class="contact-col-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Location
+        </div>
+        <p>[Address]<br>[City, Province]<br>[Postal Code]</p>
+      </div>
+      <div class="contact-col">
+        <div class="contact-col-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
+          Reach Us
+        </div>
+        <p>[Phone Number]<br>[email@parmarkdaycare.com]<br>Mon–Fri · [7:00 AM – 6:00 PM]</p>
+      </div>
+      <div class="contact-col">
+        <div class="contact-col-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          Follow Along
+        </div>
+        <p>Updates and announcements coming soon on social media.</p>
+        <p style="margin-top:10px;color:#bbb;font-size:13px;">[ Instagram ] &nbsp;·&nbsp; [ Facebook ]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Parmar DayCare</strong> &nbsp;·&nbsp; All Rights Reserved &nbsp;·&nbsp; © 2026 &nbsp;·&nbsp; Opening October 2026
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('wl-name').value.trim() || 'there';
+    const msg = document.createElement('div');
+    msg.className = 'success-msg';
+    msg.textContent = 'Thank you, ' + name + '. We\'ve noted your interest and will be in touch as enrollment opens. We look forward to welcoming your family.';
+    this.replaceWith(msg);
+  });
+</script>
+</body>
+</html>
